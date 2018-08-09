@@ -1,0 +1,9 @@
+export TMP=/tmp/utap-tomcat
+
+export CD=/root/utap_files                &> $TMP-1000
+
+# /bin/cp ensures file overwrite
+/bin/cp $CD/setenv.sh /root/tomcat/bin/   &> $TMP-1100
+chmod +x /root/tomcat/bin/setenv.sh       &> $TMP-1200
+
+cp $CD/utap.props /root/tomcat/conf/      &> $TMP-1300

@@ -77,24 +77,13 @@ Resources:
             -
               - "#!/bin/bash -ex\n"
               - "yum install git -y\n"
-              - "bash -c 'cd /root; pwd &> /tmp/clone-1000'\n"
               - "bash -c 'cd /root; git clone https://github.com/craigwongva/utaq  &> /tmp/clone-1100'\n"
               - "bash -c 'cd /root/utaq; ./userdata/awscli/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/httpd/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/CD/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/java/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/tomcat/install'\n"
-              - "echo tracer16 > /tmp/tracer16\n"
-#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu; git clone https://github.com/craigwongva/utaq'\n"
-#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; sudo apt-get update'\n"
-#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/install'\n"
-#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/awscli/install'\n"
-#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/nginx/install'\n"
-#              - "echo tracer14 > /tmp/tracer14\n"
-#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/tomcat7/install'\n"
-#              - "echo tracer15 > /tmp/tracer15\n"
-#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/jira/install'\n"
-
+              - "bash -c 'cd /root/utaq; ./userdata/utap-tomcat/install'\n"
       InstanceType: t2.micro
       ImageId: ami-6871a115 # Red Hat 7.5
       Tags:
