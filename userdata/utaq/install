@@ -1,5 +1,8 @@
 export TMP=/tmp/utaq
 
-cd /root/utaq/userdata/utaq
-
 echo hello > $TMP-1000
+
+cd /root/utaq
+
+aws s3 cp s3://utap-userdata/utap_files.tgz .
+tar -xf utap_files.tgz

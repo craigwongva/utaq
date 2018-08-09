@@ -77,7 +77,8 @@ Resources:
             -
               - "#!/bin/bash -ex\n"
               - "yum install git -y\n"
-              - "git clone https://github.com/craigwongva/utaq\n"
+              - "bash -c 'cd /root; pwd &> /tmp/clone-1000'\n"
+              - "bash -c 'cd /root; git clone https://github.com/craigwongva/utaq  &> /tmp/clone-1100'\n"
               - "bash -c 'cd utaq; ./userdata/awscli/install'\n"
               - "bash -c 'cd utaq; ./userdata/utaq/install'\n"
               - "echo tracer16 > /tmp/tracer16\n"
