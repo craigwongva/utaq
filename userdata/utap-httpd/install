@@ -1,0 +1,10 @@
+export TMP=/tmp/utap-httpd
+
+export CD=/root/utap_files                                           &> $TMP-1000
+
+export local=`curl 169.254.169.254/latest/meta-data/public-hostname` &> $TMP-1100
+
+sed -e "s/ec2-54-159-132-19.compute-1.amazonaws.com/$local/" utap_files/httpd.conf > /root/httpd.conf.updated &> $TMP-1200
+
+# /bin/cp ensures file overwrite
+/bin/cp /root/httpd.conf.updated /etc/httpd/conf/httpd.conf          &> $TMP-1300

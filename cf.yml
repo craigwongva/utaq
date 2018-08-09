@@ -84,6 +84,7 @@ Resources:
               - "bash -c 'cd /root/utaq; ./userdata/java/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/tomcat/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/utap-tomcat/install'\n"
+              - "bash -c 'cd /root/utaq; ./userdata/utap-httpd/install'\n"
       InstanceType: t2.micro
       ImageId: ami-6871a115 # Red Hat 7.5
       Tags:
