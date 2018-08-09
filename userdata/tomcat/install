@@ -1,5 +1,8 @@
 export TMP=/tmp/tomcat
 
+# Assume Java has been installed already:
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk  &> $TMP-0900
+
 cd /root/utaq/userdata/tomcat
 
 cp /root/utaq/utap_files/tomcat.tgz /root/utaq/userdata/tomcat/   &> $TMP-1000
