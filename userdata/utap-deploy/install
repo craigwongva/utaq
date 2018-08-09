@@ -1,0 +1,7 @@
+export TMP=/tmp/utap-deploy
+
+sudo service httpd start                             &> $TMP-1000
+
+cp /root/utap_files/utap.war /root/tomcat/webapps/   &> $TMP-1100
+/root/tomcat/bin/startup.sh                          &> $TMP-1200
+
