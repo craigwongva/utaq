@@ -1,0 +1,5 @@
+export TMP=/tmp/httpd
+
+cd /root/utaq/userdata/httpd
+
+yum install httpd -y &> $TMP-1000
