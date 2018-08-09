@@ -1,0 +1,7 @@
+export TMP=/tmp/awscli
+
+cd /root/utaq/userdata/awscli
+
+curl -O https://bootstrap.pypa.io/get-pip.py &> $TMP-1000
+sudo python get-pip.py                       &> $TMP-1100
+sudo pip install awscli                      &> $TMP-1200

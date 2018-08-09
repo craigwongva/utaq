@@ -1,0 +1,5 @@
+export TMP=/tmp/utaq
+
+cd /root/utaq/userdata/utaq
+
+echo hello > $TMP-1000
