@@ -3,10 +3,10 @@ export TMP=/tmp/tomcat
 # Assume Java has been installed already:
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk  &> $TMP-0900
 
-cd /root/utaq/userdata/tomcat
+cp /root/utap_files/tomcat.tgz /root/                &> $TMP-1000
 
-cp /root/utaq/utap_files/tomcat.tgz /root/utaq/userdata/tomcat/   &> $TMP-1000
+cd /root                                             &> $TMP-1050
 tar -xf tomcat.tgz                                   &> $TMP-1100
 tar xf apache-tomcat-7.0.86.tar                      &> $TMP-1200
-mv apache-tomcat-7.0.86 /root/                       &> $TMP-1300
+# not needed: mv apache-tomcat-7.0.86 /root/                       &> $TMP-1300
 ln -s /root/apache-tomcat-7.0.86 /root/tomcat        &> $TMP-1400
