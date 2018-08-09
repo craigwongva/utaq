@@ -2,8 +2,8 @@ export TMP=/tmp/tomcat
 
 cd /root/utaq/userdata/tomcat
 
-cp /root/utaq/userdata/utaq/tomcat.tgz /root/utaq/userdata/tomcat/ &> $TMP-1000
+cp /root/utaq/utap_files/tomcat.tgz /root/utaq/userdata/tomcat/   &> $TMP-1000
 tar -xf tomcat.tgz                                   &> $TMP-1100
 tar xf apache-tomcat-7.0.86.tar                      &> $TMP-1200
 mv apache-tomcat-7.0.86 /root/                       &> $TMP-1300
-ln -s /root/apache-tomcat-7.0.86 tomcat              &> $TMP-1400
+ln -s /root/apache-tomcat-7.0.86 /root/tomcat        &> $TMP-1400
