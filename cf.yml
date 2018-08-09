@@ -1,0 +1,101 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  whitelistCraigOffice:
+    Type: String
+    Default: 158.184.209.106/32
+  keyname:
+    Type: String
+    Default: jira
+Resources:
+  UtaqInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: UtaqInstanceRole-${AWS::StackName}
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+        -
+          PolicyName: "UtaqInstanceRoleAccessPolicy"
+          PolicyDocument:
+            Version: "2012-10-17"        
+            Statement:
+              - 
+                Effect: "Allow"
+                Action:
+                  - "s3:*"
+                Resource:
+                  - "arn:aws:s3:::utaq-cd/*"
+              - 
+                Effect: "Allow"
+                Action:
+                  - "ec2:*"
+                Resource:
+                  - "*"
+      Path: "/"      
+  UtaqProfileUnref:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref UtaqInstanceRole
+      InstanceProfileName: 
+        Fn::Sub: UtaqProfile-${AWS::StackName}
+  UtaqSecGrp:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      # the default VPC:
+      VpcId: vpc-6068981b
+      GroupDescription: dummy01
+      SecurityGroupIngress:
+      - CidrIp: 0.0.0.0/0
+        FromPort: 22
+        IpProtocol: tcp
+        ToPort: 22
+      - CidrIp: !Ref whitelistCraigOffice
+        FromPort: 8080
+        IpProtocol: tcp
+        ToPort: 8080
+  UtaqEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      IamInstanceProfile: 
+        Fn::Sub: UtaqProfile-${AWS::StackName}
+      KeyName: !Ref keyname
+      SecurityGroupIds: 
+        - !Ref UtaqSecGrp
+      UserData:
+        Fn::Base64:
+          Fn::Join:
+            - ""
+            -
+              - "#!/bin/bash -ex\n"
+              - "yum install git -y\n"
+              - "git clone https://github.com/craigwongva/utaq\n"
+              - "echo tracer16 > /tmp/tracer16\n"
+#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu; git clone https://github.com/craigwongva/utaq'\n"
+#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; sudo apt-get update'\n"
+#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/install'\n"
+#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/awscli/install'\n"
+#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/nginx/install'\n"
+#              - "echo tracer14 > /tmp/tracer14\n"
+#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/tomcat7/install'\n"
+#              - "echo tracer15 > /tmp/tracer15\n"
+#              - "sudo -u ec2-user bash -c 'cd /home/ubuntu/jira; ./userdata/jira/install'\n"
+
+      InstanceType: t2.micro
+      ImageId: ami-6871a115 # Red Hat 7.5
+      Tags:
+        - Key: Name
+          Value: 
+            Fn::Sub: UtaqEC2Instance-${AWS::StackName}
+Outputs:
+  InstanceID:
+    Description: "The Instance ID"
+    Value: !GetAtt UtaqEC2Instance.PublicIp
