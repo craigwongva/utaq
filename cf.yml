@@ -81,7 +81,7 @@ Resources:
               - "bash -c 'cd /root; git clone https://github.com/craigwongva/utaq  &> /tmp/clone-1100'\n"
               - "bash -c 'cd /root/utaq; ./userdata/awscli/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/httpd/install'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/utaq/install'\n"
+              - "bash -c 'cd /root/utaq; ./userdata/CD/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/java/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/tomcat/install'\n"
               - "echo tracer16 > /tmp/tracer16\n"
