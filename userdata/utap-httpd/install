@@ -5,8 +5,19 @@ export CD=/root/utap_files                                           &> $TMP-100
 export local=`curl 169.254.169.254/latest/meta-data/public-hostname` &> $TMP-1100
 echo $local                                                          &> $TMP-1200
 
-# intentionally omit &> redirect
-sed -e "s/ec2-54-159-132-19.compute-1.amazonaws.com/$local/" /root/utap_files/httpd.conf > /root/httpd.conf.updated 
+# The utap_files/httpd.conf runs on Apache 2.2, but not on Apache 2.4. 
+# (A default 'yum install' installs Apache 2.4.)
+# Therefore this repo contains a file named VirtualHost.httpd.conf,
+#  which has been tested to work successfully when appended onto the
+#  Apache 2.4 httpd.conf.
+# Intentionally omit &> redirect
+##sed -e "s/ec2-54-159-132-19.compute-1.amazonaws.com/$local/" $CD/httpd.conf > /root/httpd.conf.updated 
+
+# Intentionally omit &> redirect
+cat /root/httpd.conf /root/utaq/VirtualHost.httpd.conf >> /root/httpd.conf.updated1
+
+# Intentionally omit &> redirect
+sed -e "s/ec2-54-159-132-19.compute-1.amazonaws.com/$local/" /root/httpd.conf.updated1 > /root/httpd.conf.updated2
 
 # /bin/cp ensures file overwrite
-/bin/cp /root/httpd.conf.updated /etc/httpd/conf/httpd.conf          &> $TMP-1300
+/bin/cp /root/httpd.conf.updated2 /etc/httpd/conf/httpd.conf          &> $TMP-1300
