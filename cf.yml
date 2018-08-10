@@ -88,7 +88,7 @@ Resources:
               - "bash -c 'cd /root/utaq; ./userdata/java/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/tomcat/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/utap-tomcat/install'\n"
-#              - "bash -c 'cd /root/utaq; ./userdata/utap-httpd/install'\n"
+              - "bash -c 'cd /root/utaq; ./userdata/utap-httpd/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/utap-rds/install'\n"
               - "bash -c 'cd /root/utaq; ./userdata/utap-deploy/install'\n"
       InstanceType: t2.micro
