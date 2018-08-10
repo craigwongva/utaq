@@ -59,6 +59,10 @@ Resources:
         IpProtocol: tcp
         ToPort: 22
       - CidrIp: !Ref whitelistCraigOffice
+        FromPort: 80
+        IpProtocol: tcp
+        ToPort: 80
+      - CidrIp: !Ref whitelistCraigOffice
         FromPort: 8080
         IpProtocol: tcp
         ToPort: 8080
