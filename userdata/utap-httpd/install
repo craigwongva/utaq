@@ -13,8 +13,9 @@ echo $local                                                          &> $TMP-120
 # Intentionally omit &> redirect
 ##sed -e "s/ec2-54-159-132-19.compute-1.amazonaws.com/$local/" $CD/httpd.conf > /root/httpd.conf.updated 
 
+# Assume httpd has already been installed.
 # Intentionally omit &> redirect
-cat /root/httpd.conf /root/utaq/VirtualHost.httpd.conf >> /root/httpd.conf.updated1
+cat /etc/httpd/conf/httpd.conf /root/utaq/VirtualHost.httpd.conf >> /root/httpd.conf.updated1
 
 # Intentionally omit &> redirect
 sed -e "s/ec2-54-159-132-19.compute-1.amazonaws.com/$local/" /root/httpd.conf.updated1 > /root/httpd.conf.updated2
