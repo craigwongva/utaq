@@ -1,0 +1,7 @@
+export TMP=/tmp/utap-rds
+
+export publicipv4=`curl 169.254.169.254/latest/meta-data/public-ipv4` &> $TMP-1000
+
+# To Do: add a Description to help keep the RDS security group well-documented
+aws ec2 authorize-security-group-ingress --group-id sg-8168f2f6 --cidr $publicipv4/32 --port 5432 --protocol tcp --region us-east-1 &> $TMP-1100
+
