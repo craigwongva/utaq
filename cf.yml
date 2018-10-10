@@ -32,7 +32,7 @@ Resources:
                 Action:
                   - "s3:*"
                 Resource:
-                  - "arn:aws:s3:::utap-userdata/*"
+                  - "arn:aws:s3:::utap-cd-utap-0.1.1/*"
               - 
                 Effect: "Allow"
                 Action:
@@ -81,18 +81,21 @@ Resources:
             -
               - "#!/bin/bash -ex\n"
               - "yum install git -y\n"
-              - "bash -c 'cd /root; git clone https://github.com/craigwongva/utaq  &> /tmp/clone-1100'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/awscli/install'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/httpd/install'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/CD/install'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/java/install'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/tomcat/install'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/utap-tomcat/install'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/utap-httpd/install'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/utap-rds/install'\n"
-              - "bash -c 'cd /root/utaq; ./userdata/utap-deploy/install'\n"
-      InstanceType: t2.micro
-      ImageId: ami-6871a115 # Red Hat 7.5
+              - "bash -c 'cd /root;              git clone -b utap011 https://github.com/craigwongva/utaq  &> /tmp/clone-1000'\n"
+              - "bash -c 'cd /root/utaq;         aws s3 cp s3://utap-cd-utap-0.1.1/CD-utap-011b.zip .      &> /tmp/CD-1000'\n"
+              - "bash -c 'cd /root/utaq;         unzip CD-utap-011b.zip .                                  &> /tmp/CD-1100'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./install_dependencies.sh                                 &> /tmp/before-1000'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./install_tomcat.sh                                       &> /tmp/before-1100'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./remove_old_war.sh                                       &> /tmp/before-1200'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./cp utap.war /opt/tomcat/webapps/                        &> /tmp/install-1000'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./cp utap.properties /opt/tomcat/conf                     &> /tmp/install-1100'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./cp setenv.sh /opt/tomcat/bin                            &> /tmp/install-1200'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./cp tomcat.conf /etc/httpd/conf.d/                       &> /tmp/install-1300'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./cp tomcat8 /etc/sysconfig                               &> /tmp/install-1400'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./cp custom_404.html /var/www/html/                       &> /tmp/install-1500'\n"
+              - "bash -c 'cd /root/CD-utap-011b; ./start_server.sh                                         &> /tmp/start-1000'\n"
+      InstanceType: t2.small
+      ImageId: ami-cfe4b2b0 # Amazon Linux
       Tags:
         - Key: Name
           Value: 
