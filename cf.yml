@@ -51,7 +51,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       # the default VPC:
-      VpcId: vpc-6068981b
+      VpcId: vpc-0e39c33d5c3d3a124
       GroupDescription: dummy01
       SecurityGroupIngress:
       - CidrIp: 0.0.0.0/0
@@ -103,7 +103,8 @@ Resources:
         - Key: Name
           Value: 
             Fn::Sub: UtaqEC2Instance-${AWS::StackName}
-Outputs:
-  InstanceID:
-    Description: "The Instance ID"
-    Value: !GetAtt UtaqEC2Instance.PublicIp
+# Hide the following, becuase PublicIp isn't available in this VPC:
+#Outputs:
+#  InstanceID:
+#    Description: "The Instance ID"
+#    Value: !GetAtt UtaqEC2Instance.PublicIp
